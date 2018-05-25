@@ -73,6 +73,10 @@ else
         ],
         // Disable rule: expected the Promise rejection reason to be an Error.
         // It not allow explicitly return promise reject without error provided
+        \"max-lines\": [
+          \"warn\",
+          300
+        ],
         \"prefer-promise-reject-errors\": 0,
         // TODO: find solution for resolve paths for import
         // For now disable error: unable to resolve path to module
