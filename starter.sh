@@ -103,6 +103,7 @@ fi
 cd $PROJECT_PATH
 
 PATH="/usr/local/bin/:$PATH"
+FLOW_CONFIG_VERSION=$(tail -n 1 ".flowconfig");
 
 yarn add -D \
 babel-eslint \
@@ -113,12 +114,17 @@ eslint-plugin-jsx-a11y \
 husky \
 eslint-plugin-import \
 eslint-config-airbnb \
-flow-bin \
+flow-bin@$FLOW_CONFIG_VERSION \
 eslint-plugin-flowtype
 
 sed -i.bak '/emoji=true/a\
 esproposal.decorators=ignore' ".flowconfig"
 
-
+sed -i.bak '/"scripts": {/a\ 
+\    "lint": "eslint ./src",\
+\    "flow": "node_modules/.bin/flow",\
+\    "precommit": "npm run lint && npm run test",\
+\    "prepush": "npm run lint && npm run test",\
+' "package.json"
 
 
